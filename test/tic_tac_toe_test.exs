@@ -20,5 +20,6 @@ defmodule TicTacToeTest do
     assert function_exported?(TicTacToe, :check_player, 1) == true
     assert TicTacToe.check_player(:o) == {:ok, :o}
     assert TicTacToe.check_player(:x) == {:ok, :x}
+    assert TicTacToe.check_player(:z) == {:error, :invalid_player}
   end
 end
