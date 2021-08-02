@@ -15,4 +15,8 @@ defmodule TicTacToeTest do
     assert TicTacToe.new_board() |> Map.keys |> length > 0
     assert TicTacToe.new_board() |> Map.keys |> Enum.count == 9
   end
+
+  test "player should be :o or :x" do
+    assert function_exported?(TicTacToe, :check_player, 1) == true
+  end
 end
