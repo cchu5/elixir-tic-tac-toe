@@ -7,6 +7,10 @@ defmodule TicTacToe do
       _ -> {:error, :invalid_player}
     end
   end
+
+  def choose_square(board, square, player) do
+    
+  end
   
   def new_board do
     squares = for position <- 1..9, into: MapSet.new(), do: %Square{position: position}
