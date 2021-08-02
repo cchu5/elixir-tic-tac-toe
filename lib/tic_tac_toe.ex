@@ -16,6 +16,10 @@ defmodule TicTacToe do
       :empty -> {:ok, %{board | square => player}}
     end
   end
+
+  def play_at(board, position, player) do
+    
+  end
   
   def new_board do
     squares = for position <- 1..9, into: MapSet.new(), do: %Square{position: position}
