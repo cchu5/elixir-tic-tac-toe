@@ -9,7 +9,11 @@ defmodule TicTacToe do
   end
 
   def choose_square(board, square, player) do
-    {:ok, %{board | square => player}}
+    case board[square] do
+      :o -> {:error, :taken}
+      :x -> {:error, :taken}
+      :empty -> {:ok, %{board | square => player}}
+    end
   end
   
   def new_board do
