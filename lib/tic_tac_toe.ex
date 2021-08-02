@@ -4,6 +4,7 @@ defmodule TicTacToe do
     case player do
       :x -> {:ok, player}
       :o -> {:ok, player}
+      _ -> {:error, :invalid_player}
     end
   end
   
