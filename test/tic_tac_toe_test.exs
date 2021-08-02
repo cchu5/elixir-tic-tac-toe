@@ -70,8 +70,10 @@ defmodule TicTacToeTest do
 
     test "play_at returns a new_board" do
       board = TicTacToe.new_board()
-      expected_board = TicTacToe.choose_square(board, %Square{position: 1}, :o)
+
+      {:ok, expected_board} = TicTacToe.choose_square(board, %Square{position: 1}, :o)
       new_board = TicTacToe.play_at(board, 1, :o)
+
       assert new_board == expected_board 
     end
   end
