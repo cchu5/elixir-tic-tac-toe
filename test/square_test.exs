@@ -4,5 +4,6 @@ defmodule SquareTest do
 
   test "create a square" do
     assert function_exported?(Square, :new, 1) == true
+    assert Square.new(1) == {:ok, %Square{position: 1}}
   end
 end
