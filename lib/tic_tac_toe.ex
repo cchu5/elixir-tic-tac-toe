@@ -9,7 +9,7 @@ defmodule TicTacToe do
   end
 
   def choose_square(board, square, player) do
-    
+    {:ok, %{board | square => player}}
   end
   
   def new_board do

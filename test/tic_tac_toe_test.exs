@@ -28,7 +28,7 @@ defmodule TicTacToeTest do
     assert function_exported?(TicTacToe, :choose_square, 3) == true
 
     board = TicTacToe.new_board()
-    square = %{%Square{position: 1} => :empty}
+    square = %Square{position: 1}
     assert {:ok, _}= TicTacToe.choose_square(board, square, :o)
   end
 end
