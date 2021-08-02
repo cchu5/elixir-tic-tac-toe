@@ -37,17 +37,24 @@ defmodule TicTacToeTest do
 
       board = TicTacToe.choose_square(board, square, :o)
       
-      assert {:ok, updated_board} = board
-      assert updated_board |> Enum.fetch(0) == {:ok, {square, :o}}
+      assert {:ok, result} = board
+      assert result |> Enum.fetch(0) == {:ok, {square, :o}}
     end
 
     test "choose a square that's been chosen" do
       board = TicTacToe.new_board()
       square = %Square{position: 1}
       {:ok, board} = TicTacToe.choose_square(board, square, :o)
-      updated_board = TicTacToe.choose_square(board, square, :x)
+      result = TicTacToe.choose_square(board, square, :x)
 
-      assert {:error, :taken} = updated_board
+      assert {:error, :taken} = result
+    end
+
+    test "choose a nonexistent square" do
+      board = TicTacToe.new_board()
+      result = TicTacToe.choose_square(board, "", :o)
+
+      assert {:error, :invalid_location} = result
     end
   end
 end
