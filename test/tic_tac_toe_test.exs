@@ -56,5 +56,9 @@ defmodule TicTacToeTest do
 
       assert {:error, :invalid_location} = result
     end
+
+    test "play next move with validations" do
+      assert function_exported?(TicTacToe, :play_at, 3) == true
+    end
   end
 end
