@@ -29,7 +29,9 @@ defmodule TicTacToeTest do
 
     board = TicTacToe.new_board()
     square = %Square{position: 1}
+
     board = TicTacToe.choose_square(board, square, :o)
+    
     assert {:ok, updated_board} = board
     assert updated_board |> Enum.fetch(0) == {:ok, {square, :o}}
   end
