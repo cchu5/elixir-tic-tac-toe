@@ -9,6 +9,6 @@ defmodule TicTacToeTest do
 
     board = TicTacToe.new_board()
     expected_square = %Square{position: 1}
-    assert board |> Map.values |> Enum.at(0) == %{expected_square => :empty}
+    assert board |> Enum.fetch(0) == {:ok, {expected_square, :empty}}
   end
 end
