@@ -1,5 +1,6 @@
 defmodule TicTacToe do
   def new_board do
-    for square <- [%Square{position: 1}], into: %{}, do: {square, :empty}
+    squares = for position <- 1..9, into: MapSet.new(), do: %Square{position: position}
+    for square <- squares, into: %{}, do: {square, :empty}
   end
 end
