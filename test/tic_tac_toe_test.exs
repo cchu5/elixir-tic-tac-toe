@@ -3,9 +3,11 @@ defmodule TicTacToeTest do
   doctest TicTacToe
 
   describe "tests for board" do
-    test "create new board" do
-      assert function_exported?(TicTacToe, :new_board, 0) == true
+    test "new_board exists" do
+      assert function_exported?(TicTacToe, :new_board, 0) == true  
+    end
 
+    test "create new board" do
       board = TicTacToe.new_board()
       assert board |> is_map == true
 
@@ -20,8 +22,11 @@ defmodule TicTacToeTest do
   end
 
   describe "tests for players" do
+    test "check_player exists" do
+      assert function_exported?(TicTacToe, :check_player, 1) == true  
+    end
+
     test "player should be :o or :x" do
-      assert function_exported?(TicTacToe, :check_player, 1) == true
       assert TicTacToe.check_player(:o) == {:ok, :o}
       assert TicTacToe.check_player(:x) == {:ok, :x}
       assert TicTacToe.check_player(:z) == {:error, :invalid_player}
@@ -29,9 +34,11 @@ defmodule TicTacToeTest do
   end
 
   describe "tests for actions" do
-    test "choose an empty square" do
-      assert function_exported?(TicTacToe, :choose_square, 3) == true
+    test "choose_square exists" do
+      assert function_exported?(TicTacToe, :choose_square, 3) == true  
+    end
 
+    test "choose an empty square" do
       board = TicTacToe.new_board()
       square = %Square{position: 1}
 
@@ -57,8 +64,15 @@ defmodule TicTacToeTest do
       assert {:error, :invalid_location} = result
     end
 
-    test "play next move with validations" do
+    test "play_at exists" do
       assert function_exported?(TicTacToe, :play_at, 3) == true
+    end
+
+    test "play_at returns a new_board" do
+      board = TicTacToe.new_board()
+      expected_board = TicTacToe.choose_square(board, %Square{position: 1}, :o)
+      new_board = TicTacToe.play_at(board, 1, :o)
+      assert new_board == expected_board 
     end
   end
 end
