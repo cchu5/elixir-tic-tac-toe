@@ -4,9 +4,10 @@ defmodule TicTacToeTest do
 
   test "create new board" do
     assert function_exported?(TicTacToe, :new_board, 0) == true
-    assert TicTacToe.new_board() |> is_map == true
 
     board = TicTacToe.new_board()
+    assert board |> is_map == true
+
     expected_square = %Square{position: 1}
     assert board |> Enum.fetch(0) == {:ok, {expected_square, :empty}}
   end
@@ -25,5 +26,9 @@ defmodule TicTacToeTest do
 
   test "choose a square" do
     assert function_exported?(TicTacToe, :choose_square, 3) == true
+
+    board = TicTacToe.new_board()
+    square = %{%Square{position: 1} => :empty}
+    assert {:ok, _}= TicTacToe.choose_square(board, square, :o)
   end
 end
