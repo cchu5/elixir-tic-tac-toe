@@ -1,7 +1,10 @@
 defmodule TicTacToe do
 
   def check_player(player) do
-    "player #{player}"
+    case player do
+      :x -> {:ok, player}
+      :o -> {:ok, player}
+    end
   end
   
   def new_board do
