@@ -32,7 +32,6 @@ defmodule TicTacToe do
       mapped_board[4] == :o && mapped_board[5] == :o && mapped_board[6] == :o -> {:ok, :winner_o}
       mapped_board[7] == :o && mapped_board[8] == :o && mapped_board[9] == :o -> {:ok, :winner_o}
       mapped_board[1] == :x && mapped_board[2] == :x && mapped_board[3] == :x -> {:ok, :winner_x}
-      mapped_board |> Enum.map(fn {k,v} when k in 4..6 -> v end) == [:x,:x,:x] -> {:ok, :winner_x}
       # Col
 
       # Diagonal
@@ -49,5 +48,9 @@ defmodule TicTacToe do
   def new_board do
     squares = for position <- 1..9, into: MapSet.new(), do: %Square{position: position}
     for square <- squares, into: %{}, do: {square, :empty}
+  end
+
+  def three_in_a_row(positions, player) do
+
   end
 end
