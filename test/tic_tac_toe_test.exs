@@ -102,14 +102,16 @@ defmodule TicTacToeTest do
 
   describe "three_in_a_row tests: " do
     test "three_in_a_row exists" do
-      assert function_exported?(TicTacToe, :three_in_a_row, 2) == true
+      assert function_exported?(TicTacToe, :three_in_a_row, 3) == true
     end
 
-    test "three_in_a_row returns true" do
+    test "three_in_a_row returns true" do 
+      board = TicTacToe.new_board() |> TicTacToe.play_at(1, :o) |> TicTacToe.play_at(4, :x) |> TicTacToe.play_at(2, :o) |> TicTacToe.play_at(5, :x) |> TicTacToe.play_at(3, :o)
+      mapped_board = board |> Enum.map(fn {square, value} -> {square.position, value} end) |> Map.new()
       positions = [1, 2, 3]
       player = :o
  
-      assert TicTacToe.three_in_a_row(positions, player) == true
+      assert mapped_board |> TicTacToe.three_in_a_row(positions, player) == true
     end
   end
 end

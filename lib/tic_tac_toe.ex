@@ -50,7 +50,9 @@ defmodule TicTacToe do
     for square <- squares, into: %{}, do: {square, :empty}
   end
 
-  def three_in_a_row(positions, player) do
-
+  def three_in_a_row(mapped_board, positions, player) do
+    mapped_board 
+      |> Enum.map(fn {position, value} -> if position in positions, do: value end) 
+      |> Enum.filter(fn value -> value != nil end) == [player, player, player] 
   end
 end
