@@ -81,12 +81,18 @@ defmodule TicTacToeTest do
       assert function_exported?(TicTacToe, :check_progress, 1) == true
     end
 
-    test "check_progress returns a new_board if there are no winners" do
+    test "check_progress returns a new_board if there are no moves yet or only one move" do
       board = TicTacToe.new_board()
       {:ok, expected_board} = TicTacToe.choose_square(board, %Square{position: 1}, :o)
       {:ok, new_board} = TicTacToe.check_progress(expected_board)
 
-      new_board == expected_board
+      assert new_board == expected_board
+    end
+
+    test "check_progress returns game_over and the winner if a player wins" do
+      board = TicTacToe.new_board() |> TicTacToe.play_at(1, :o) |> TicTacToe.play_at(4, :x) |> TicTacToe.play_at(2, :o) |> TicTacToe.play_at(5, :x) |> TicTacToe.play_at(3, :o)
+      
+      assert {:ok, :winner_o} = TicTacToe.check_progress(board)
     end
   end
 end
