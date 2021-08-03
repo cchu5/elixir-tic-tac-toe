@@ -76,5 +76,9 @@ defmodule TicTacToeTest do
 
       assert new_board == expected_board 
     end
+
+    test "check_progress exists" do
+      assert function_exported?(TicTacToe, :check_progress, 1) == true
+    end
   end
 end
