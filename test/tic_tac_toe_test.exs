@@ -4,7 +4,7 @@ defmodule TicTacToeTest do
 
   describe "tests for board" do
     test "new_board exists" do
-      assert function_exported?(TicTacToe, :new_board, 0) == true  
+      assert function_exported?(TicTacToe, :new_board, 0) == true
     end
 
     test "create new board" do
@@ -16,14 +16,14 @@ defmodule TicTacToeTest do
     end
 
     test "board should have 9 squares" do
-      assert TicTacToe.new_board() |> Map.keys |> length > 0
-      assert TicTacToe.new_board() |> Map.keys |> Enum.count == 9
+      assert TicTacToe.new_board() |> Map.keys() |> length > 0
+      assert TicTacToe.new_board() |> Map.keys() |> Enum.count() == 9
     end
   end
 
   describe "tests for players" do
     test "check_player exists" do
-      assert function_exported?(TicTacToe, :check_player, 1) == true  
+      assert function_exported?(TicTacToe, :check_player, 1) == true
     end
 
     test "player should be :o or :x" do
@@ -35,7 +35,7 @@ defmodule TicTacToeTest do
 
   describe "tests for actions" do
     test "choose_square exists" do
-      assert function_exported?(TicTacToe, :choose_square, 3) == true  
+      assert function_exported?(TicTacToe, :choose_square, 3) == true
     end
 
     test "choose an empty square" do
@@ -43,7 +43,7 @@ defmodule TicTacToeTest do
       square = %Square{position: 1}
 
       board = TicTacToe.choose_square(board, square, :o)
-      
+
       assert {:ok, result} = board
       assert result |> Enum.fetch(0) == {:ok, {square, :o}}
     end
@@ -74,19 +74,19 @@ defmodule TicTacToeTest do
       {:ok, expected_board} = TicTacToe.choose_square(board, %Square{position: 1}, :o)
       new_board = TicTacToe.play_at(board, 1, :o)
 
-      assert new_board == expected_board 
+      assert new_board == expected_board
     end
 
     test "check_progress exists" do
       assert function_exported?(TicTacToe, :check_progress, 1) == true
     end
 
-    test "check_progress returns a new_board" do
+    test "check_progress returns a new_board if there are no winners" do
       board = TicTacToe.new_board()
       {:ok, expected_board} = TicTacToe.choose_square(board, %Square{position: 1}, :o)
-      new_board = TicTacToe.check_progress(board)
-      
-      assert new_board == expected_board
+      {:ok, new_board} = TicTacToe.check_progress(expected_board)
+
+      new_board == expected_board
     end
   end
 end
