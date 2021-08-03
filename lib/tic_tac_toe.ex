@@ -26,6 +26,16 @@ defmodule TicTacToe do
       mapped_board |> Map.values() |> Enum.member?(:o) == false ||
       mapped_board |> Map.values() |> Enum.member?(:x) == false ->
         {:ok, board}
+      # Rows
+      # mapped_board[1] == :o && mapped_board[2] == :o && mapped_board[3] == :o -> {:ok, :winner_o}
+      mapped_board |> Enum.map(fn {position, value} -> if position in 1..3, do: value end) |> Enum.filter(fn value -> value != nil end) == [:o,:o,:o] -> {:ok, :winner_o}
+      mapped_board[4] == :o && mapped_board[5] == :o && mapped_board[6] == :o -> {:ok, :winner_o}
+      mapped_board[7] == :o && mapped_board[8] == :o && mapped_board[9] == :o -> {:ok, :winner_o}
+      mapped_board[1] == :x && mapped_board[2] == :x && mapped_board[3] == :x -> {:ok, :winner_x}
+      mapped_board |> Enum.map(fn {k,v} when k in 4..6 -> v end) == [:x,:x,:x] -> {:ok, :winner_x}
+      # Col
+
+      # Diagonal
     end
   end
 
