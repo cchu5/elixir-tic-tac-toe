@@ -104,5 +104,12 @@ defmodule TicTacToeTest do
     test "three_in_a_row exists" do
       assert function_exported?(TicTacToe, :three_in_a_row, 2) == true
     end
+
+    test "three_in_a_row returns true" do
+      positions = [1, 2, 3]
+      player = :o
+ 
+      assert TicTacToe.three_in_a_row(positions, player) == true
+    end
   end
 end
