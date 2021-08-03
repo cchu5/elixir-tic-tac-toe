@@ -2,7 +2,7 @@ defmodule TicTacToeTest do
   use ExUnit.Case
   doctest TicTacToe
 
-  describe "tests for board" do
+  describe "new_board tests: " do
     test "new_board exists" do
       assert function_exported?(TicTacToe, :new_board, 0) == true
     end
@@ -21,7 +21,7 @@ defmodule TicTacToeTest do
     end
   end
 
-  describe "tests for players" do
+  describe "check_player tests: " do
     test "check_player exists" do
       assert function_exported?(TicTacToe, :check_player, 1) == true
     end
@@ -33,7 +33,7 @@ defmodule TicTacToeTest do
     end
   end
 
-  describe "tests for actions" do
+  describe "choose_square tests: " do
     test "choose_square exists" do
       assert function_exported?(TicTacToe, :choose_square, 3) == true
     end
@@ -63,7 +63,9 @@ defmodule TicTacToeTest do
 
       assert {:error, :invalid_location} = result
     end
+  end
 
+  describe "play_at tests: " do
     test "play_at exists" do
       assert function_exported?(TicTacToe, :play_at, 3) == true
     end
@@ -76,7 +78,9 @@ defmodule TicTacToeTest do
 
       assert new_board == expected_board
     end
+  end
 
+  describe "check_progress tests: " do
     test "check_progress exists" do
       assert function_exported?(TicTacToe, :check_progress, 1) == true
     end
@@ -93,6 +97,12 @@ defmodule TicTacToeTest do
       board = TicTacToe.new_board() |> TicTacToe.play_at(1, :o) |> TicTacToe.play_at(4, :x) |> TicTacToe.play_at(2, :o) |> TicTacToe.play_at(5, :x) |> TicTacToe.play_at(3, :o)
       
       assert {:ok, :winner_o} = TicTacToe.check_progress(board)
+    end
+  end
+
+  describe "three_in_a_row tests: " do
+    test "three_in_a_row exists" do
+      assert function_exported?(TicTacToe, :three_in_a_row, 2) == true
     end
   end
 end
