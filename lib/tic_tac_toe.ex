@@ -17,6 +17,10 @@ defmodule TicTacToe do
     end
   end
 
+  def check_progress(board) do
+    
+  end
+
   def play_at(board, position, player) do
     with {:ok, valid_player} <- check_player(player),
          {:ok, square} <- Square.new(position),

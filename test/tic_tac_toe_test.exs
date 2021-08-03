@@ -80,5 +80,13 @@ defmodule TicTacToeTest do
     test "check_progress exists" do
       assert function_exported?(TicTacToe, :check_progress, 1) == true
     end
+
+    test "check_progress returns a new_board" do
+      board = TicTacToe.new_board()
+      {:ok, expected_board} = TicTacToe.choose_square(board, %Square{position: 1}, :o)
+      new_board = TicTacToe.check_progress(board)
+      
+      assert new_board == expected_board
+    end
   end
 end
