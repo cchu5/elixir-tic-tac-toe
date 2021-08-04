@@ -23,8 +23,8 @@ defmodule TicTacToe do
       |> Map.new()
 
     cond do
-      mapped_board |> Map.values() |> Enum.member?(:o) == false ||
-      mapped_board |> Map.values() |> Enum.member?(:x) == false ->
+      mapped_board |> made_a_move(:o) == false ||
+      mapped_board |> made_a_move(:x) == false ->
         {:ok, board}
       # Rows
       three_in_a_row(mapped_board, [1,2,3], :o) -> {:ok, :winner_o}
@@ -69,6 +69,8 @@ defmodule TicTacToe do
   end
 
   def made_a_move(mapped_board, player) do
-
+    mapped_board
+      |> Map.values
+      |> Enum.member?(player)
   end
 end
