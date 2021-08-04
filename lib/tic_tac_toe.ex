@@ -63,7 +63,9 @@ defmodule TicTacToe do
   end
 
   def all_spaces_taken(mapped_board) do
-
+    mapped_board
+      |> Enum.filter(fn {position, value} -> value == :empty end)
+      |> length <= 1
   end
 
   def three_in_a_row(mapped_board, positions, player) do

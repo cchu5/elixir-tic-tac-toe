@@ -112,6 +112,24 @@ defmodule TicTacToeTest do
     test "all_spaces_taken exists" do
       assert function_exported?(TicTacToe, :all_spaces_taken, 1) == true
     end
+
+    test "all_spaces_taken returns true if there is 1 space or less left that are :empty" do
+      expected = create_populated_board([{1,:o}, {2,:x}, {3,:o}, {4,:o}, {5,:x}, {6,:o}, {7,:x}, {8,:o}])
+        |> Enum.map(fn {square, value} -> {square.position, value} end)
+        |> Map.new
+        |> TicTacToe.all_spaces_taken
+      
+      assert expected == true
+    end
+
+    test "all_spaces_taken returns false if there is more than 1 space that is :empty" do
+      expected = create_populated_board([{1,:o}, {2,:x}, {3,:o}, {4,:o}, {5,:x}, {6,:o}])
+        |> Enum.map(fn {square, value} -> {square.position, value} end)
+        |> Map.new
+        |> TicTacToe.all_spaces_taken
+      
+      assert expected == false
+    end
   end
   
   describe "three_in_a_row tests: " do
