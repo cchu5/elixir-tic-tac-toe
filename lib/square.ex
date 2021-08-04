@@ -1,4 +1,5 @@
 defmodule Square do
+  # TODO: Should this be a Struct or just {1 => :empty} ?
   @enforce_keys [:position]
 
   defstruct [:position]
