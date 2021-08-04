@@ -108,6 +108,12 @@ defmodule TicTacToeTest do
     end
   end
 
+  describe "all_spaces_taken tests: " do
+    test "all_spaces_taken exists" do
+      assert function_exported?(TicTacToe, :all_spaces_taken, 1) == true
+    end
+  end
+  
   describe "three_in_a_row tests: " do
     test "three_in_a_row exists" do
       assert function_exported?(TicTacToe, :three_in_a_row, 3) == true
