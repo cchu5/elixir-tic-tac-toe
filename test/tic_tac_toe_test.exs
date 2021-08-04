@@ -1,4 +1,5 @@
 defmodule TicTacToeTest do
+  import TestHelper
   use ExUnit.Case
   doctest TicTacToe
 
@@ -93,10 +94,14 @@ defmodule TicTacToeTest do
       assert new_board == expected_board
     end
 
-    test "check_progress returns game_over and the winner if a player wins" do
+    test "check_progress returns the winner if a player wins" do
       board = TicTacToe.new_board() |> TicTacToe.play_at(1, :o) |> TicTacToe.play_at(4, :x) |> TicTacToe.play_at(2, :o) |> TicTacToe.play_at(5, :x) |> TicTacToe.play_at(3, :o)
       
       assert {:ok, :winner_o} = TicTacToe.check_progress(board)
+    end
+
+    test "check_progress returns draw if no one wins and no more moves" do 
+      
     end
   end
 
@@ -106,12 +111,12 @@ defmodule TicTacToeTest do
     end
 
     test "three_in_a_row returns true" do 
-      board = TicTacToe.new_board() |> TicTacToe.play_at(1, :o) |> TicTacToe.play_at(4, :x) |> TicTacToe.play_at(2, :o) |> TicTacToe.play_at(5, :x) |> TicTacToe.play_at(3, :o)
+      board = create_populated_board([{1,:o}, {2,:o}, {3,:o}, {4,:x}, {5,:x}]) 
       mapped_board = board |> Enum.map(fn {square, value} -> {square.position, value} end) |> Map.new()
       positions = [1, 2, 3]
       player = :o
  
-      assert mapped_board |> TicTacToe.three_in_a_row(positions, player) == true
+      assert TicTacToe.three_in_a_row(mapped_board, positions, player) == true
     end
   end
 end
