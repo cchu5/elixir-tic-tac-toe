@@ -167,4 +167,11 @@ defmodule TicTacToeTest do
       assert expected == false 
     end 
   end
+
+  describe "made_a_move tests: " do
+    test "made_a_move exists" do
+      assert function_exported?(TicTacToe, :made_a_move, 2) == true
+    end
+    
+  end
 end
