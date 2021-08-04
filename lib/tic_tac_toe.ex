@@ -62,6 +62,10 @@ defmodule TicTacToe do
     for square <- squares, into: %{}, do: {square, :empty}
   end
 
+  def all_spaces_taken(mapped_board) do
+
+  end
+
   def three_in_a_row(mapped_board, positions, player) do
     mapped_board 
       |> Enum.map(fn {position, value} -> if position in positions, do: value end) 
