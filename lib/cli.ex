@@ -13,4 +13,10 @@ defmodule CLI do
     @commands
     |> Enum.map(fn {command, description} -> IO.puts(" #{command} - #{description}") end)
   end
+
+  def receive_command do
+    IO.gets("> ")
+    |> String.trim
+    |> String.downcase
+  end
 end

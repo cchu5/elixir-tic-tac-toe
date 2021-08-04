@@ -28,7 +28,11 @@ defmodule CLITest do
 
   describe "receive_command tests: " do
     test "returns command" do
-      assert CLI.receive_command(FakeIO) == "quit"
+      capture_io([input: "quit", capture_prompt: false], fn ->  
+        command = CLI.receive_command()
+        send(self(), {:command, command})
+      end)
+      assert_received {:command, "quit"}
     end
   end
 end
