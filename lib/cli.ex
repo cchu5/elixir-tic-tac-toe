@@ -8,7 +8,7 @@ defmodule CLI do
     print_help_msg()
   end
 
-  defp print_help_msg do
+  def print_help_msg do
     IO.puts("These are the following commands:")
     @commands
     |> Enum.map(fn {command, description} -> IO.puts(" #{command} - #{description}") end)
