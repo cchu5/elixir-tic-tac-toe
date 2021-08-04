@@ -95,13 +95,16 @@ defmodule TicTacToeTest do
     end
 
     test "check_progress returns the winner if a player wins" do
-      board = TicTacToe.new_board() |> TicTacToe.play_at(1, :o) |> TicTacToe.play_at(4, :x) |> TicTacToe.play_at(2, :o) |> TicTacToe.play_at(5, :x) |> TicTacToe.play_at(3, :o)
-      
-      assert {:ok, :winner_o} = TicTacToe.check_progress(board)
+      board_o = create_populated_board([{1,:o}, {4,:x}, {2,:o}, {5,:x}, {3,:o}])
+      board_x = create_populated_board([{1,:o}, {4,:x}, {2,:o}, {5,:x}, {6,:x}])
+      assert {:ok, :winner_o} = TicTacToe.check_progress(board_o)
+      assert {:ok, :winner_x} = TicTacToe.check_progress(board_x)
     end
 
     test "check_progress returns draw if no one wins and no more moves" do 
-      
+      board = create_populated_board([{1,:o}, {2,:x}, {3,:o}, {4,:o}, {5,:x}, {6,:o}, {7,:x}, {8,:o}, {9,:x}])
+
+      assert {:ok, :draw} = TicTacToe.check_progress(board) 
     end
   end
 
