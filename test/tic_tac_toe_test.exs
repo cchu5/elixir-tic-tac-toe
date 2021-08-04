@@ -172,6 +172,19 @@ defmodule TicTacToeTest do
     test "made_a_move exists" do
       assert function_exported?(TicTacToe, :made_a_move, 2) == true
     end
-    
+
+    test "made_a_move returns false if player has not made a move" do
+      expected_o = create_populated_board([])
+        |> Enum.map(fn {square, value} -> {square.position, value} end)
+        |> Map.new
+        |> TicTacToe.made_a_move(:o)
+      expected_x = create_populated_board([])
+        |> Enum.map(fn {square, value} -> {square.position, value} end)
+        |> Map.new
+        |> TicTacToe.made_a_move(:x)
+
+      assert expected_o == false
+      assert expected_x == false
+    end 
   end
 end
