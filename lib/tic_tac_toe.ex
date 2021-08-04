@@ -46,6 +46,7 @@ defmodule TicTacToe do
       three_in_a_row(mapped_board, [1,5,9], :x) -> {:ok, :winner_x}
       three_in_a_row(mapped_board, [3,5,7], :x) -> {:ok, :winner_x}
       # Still in progress
+      mapped_board |> all_spaces_taken -> {:ok, :draw}
       mapped_board -> {:ok, board}
     end
   end
@@ -64,7 +65,7 @@ defmodule TicTacToe do
 
   def all_spaces_taken(mapped_board) do
     mapped_board
-      |> Enum.filter(fn {position, value} -> value == :empty end)
+      |> Enum.filter(fn {_, value} -> value == :empty end)
       |> length <= 1
   end
 
