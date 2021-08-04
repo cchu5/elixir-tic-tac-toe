@@ -10,7 +10,7 @@ defmodule TicTacToe do
   def choose_square(board, square, player) do
     case board[square] do
       nil -> {:error, :invalid_location}
-      :o -> {:error, :taken}
+      :o -> {:error, board, :taken}
       :x -> {:error, :taken}
       :empty -> {:ok, %{board | square => player}}
     end
@@ -45,8 +45,9 @@ defmodule TicTacToe do
       three_in_a_row(mapped_board, [3,5,7], :o) -> {:ok, :winner_o}
       three_in_a_row(mapped_board, [1,5,9], :x) -> {:ok, :winner_x}
       three_in_a_row(mapped_board, [3,5,7], :x) -> {:ok, :winner_x}
-      # Still in progress
+      # Draw
       mapped_board |> all_spaces_taken -> {:ok, :draw}
+      # Still in progress
       mapped_board -> {:ok, board}
     end
   end
@@ -55,7 +56,8 @@ defmodule TicTacToe do
     with {:ok, valid_player} <- check_player(player),
          {:ok, square} <- Square.new(position),
          {:ok, new_board} <- choose_square(board, square, valid_player),
-         do: new_board
+         {:ok, progress} <- check_progress(new_board),
+         do: progress
   end
 
   def new_board do
