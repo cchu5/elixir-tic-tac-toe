@@ -3,9 +3,14 @@ defmodule CLITest do
   import ExUnit.CaptureIO
   doctest CLI
     
-  test "CLI prints hello" do
+  test "CLI main prints msg" do
+    expected = """
+    Welcome to Tic Tac Toe!
+    These are the following commands:
+     quit - Quits Tic Tac Toe
+    """ 
     assert capture_io(fn ->
       CLI.main()
-    end) == "Hello\n"
+    end) == expected
   end
 end
