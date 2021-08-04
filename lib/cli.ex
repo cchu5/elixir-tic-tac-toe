@@ -6,6 +6,7 @@ defmodule CLI do
   def main() do
     IO.puts("Welcome to Tic Tac Toe!")
     print_help_msg()
+    receive_command()
   end
 
   def print_help_msg do
@@ -18,5 +19,16 @@ defmodule CLI do
     IO.gets("> ")
     |> String.trim
     |> String.downcase
+    |> execute_command
+  end
+  
+  def execute_command(command) do
+    case command do
+      "quit" -> IO.puts("Good bye")
+      _ ->
+          IO.puts("Invalid command")
+          print_help_msg()
+          receive_command()
+    end
   end
 end
