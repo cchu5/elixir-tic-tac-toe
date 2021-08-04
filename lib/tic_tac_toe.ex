@@ -67,4 +67,8 @@ defmodule TicTacToe do
       |> Enum.map(fn {position, value} -> if position in positions, do: value end) 
       |> Enum.filter(fn value -> value != nil end) == [player, player, player] 
   end
+
+  def made_a_move(mapped_board, player) do
+
+  end
 end
