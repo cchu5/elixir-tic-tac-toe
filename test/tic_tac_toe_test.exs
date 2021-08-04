@@ -113,13 +113,31 @@ defmodule TicTacToeTest do
     test "three_in_a_row returns true for horizontal win" do 
       mapped_board_for_o_win = 
         create_populated_board([{1,:o}, {2,:o}, {3,:o}, {4,:x}, {5,:x}]) 
-        |> Enum.map(fn {square, value} -> {square.position, value} end) |> Map.new()
+        |> Enum.map(fn {square, value} -> {square.position, value} end) 
+        |> Map.new()
       mapped_board_for_x_win = 
         create_populated_board([{1,:o}, {2,:o}, {4,:x}, {5,:x}, {6,:x}]) 
-        |> Enum.map(fn {square, value} -> {square.position, value} end) |> Map.new() 
+        |> Enum.map(fn {square, value} -> {square.position, value} end) 
+        |> Map.new() 
       positions_o = [1, 2, 3]
       positions_x = [4, 5, 6]
  
+      assert TicTacToe.three_in_a_row(mapped_board_for_o_win, positions_o, :o) == true
+      assert TicTacToe.three_in_a_row(mapped_board_for_x_win, positions_x, :x) == true
+    end
+    
+    test "three_in_a_row returns true for vertical win" do
+      mapped_board_for_o_win =
+        create_populated_board([{1,:o}, {2,:x}, {4,:o}, {3,:x}, {7,:o}])
+        |> Enum.map(fn {square, value} -> {square.position, value} end) 
+        |> Map.new() 
+      mapped_board_for_x_win =
+        create_populated_board([{2,:x}, {1,:o}, {5,:x}, {3,:o}, {8,:x}])
+        |> Enum.map(fn {square, value} -> {square.position, value} end)
+        |> Map.new()
+      positions_o = [1,4,7]
+      positions_x = [2,5,8]
+      
       assert TicTacToe.three_in_a_row(mapped_board_for_o_win, positions_o, :o) == true
       assert TicTacToe.three_in_a_row(mapped_board_for_x_win, positions_x, :x) == true
     end
