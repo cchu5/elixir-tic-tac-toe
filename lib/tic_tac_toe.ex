@@ -1,9 +1,5 @@
 defmodule TicTacToe do
-  # Module Attribute for Players
-  @players {:x, :o}
-
   def check_player(player) do
-    # Make sure player attribute is either :o or :x
     case player do
       :x -> {:ok, player}
       :o -> {:ok, player}
@@ -12,39 +8,78 @@ defmodule TicTacToe do
   end
 
   def choose_square(board, square, player) do
-    # For the board square, check if it:
-    # 1. Exists
-    # 2. Is not taken by :x or :o
-    # If it's not taken, you can return
     case board[square] do
       nil -> {:error, :invalid_location}
-      :x -> {:error, :taken}
       :o -> {:error, :taken}
+      :x -> {:error, :taken}
       :empty -> {:ok, %{board | square => player}}
     end
   end
 
+  def check_progress(board) do
+    mapped_board =
+      board
+      |> Enum.map(fn {square, value} -> {square.position, value} end)
+      |> Map.new()
+
+    cond do
+      mapped_board |> made_a_move(:o) == false ||
+      mapped_board |> made_a_move(:x) == false ->
+        {:ok, board, :continue}
+      # Rows
+      three_in_a_row(mapped_board, [1,2,3], :o) -> {:ok, board, :winner_o}
+      three_in_a_row(mapped_board, [4,5,6], :o) -> {:ok, board, :winner_o}
+      three_in_a_row(mapped_board, [7,8,9], :o) -> {:ok, board, :winner_o}
+      three_in_a_row(mapped_board, [1,2,3], :x) -> {:ok, board, :winner_x}
+      three_in_a_row(mapped_board, [4,5,6], :x) -> {:ok, board, :winner_x}
+      three_in_a_row(mapped_board, [7,8,9], :x) -> {:ok, board, :winner_x}
+      # Columns
+      three_in_a_row(mapped_board, [1,4,7], :o) -> {:ok, board, :winner_o}
+      three_in_a_row(mapped_board, [2,5,8], :o) -> {:ok, board, :winner_o}
+      three_in_a_row(mapped_board, [3,6,9], :o) -> {:ok, board, :winner_o}
+      three_in_a_row(mapped_board, [1,4,7], :x) -> {:ok, board, :winner_x}
+      three_in_a_row(mapped_board, [2,5,8], :x) -> {:ok, board, :winner_x}
+      three_in_a_row(mapped_board, [3,6,9], :x) -> {:ok, board, :winner_x}
+      # Diagonal
+      three_in_a_row(mapped_board, [1,5,9], :o) -> {:ok, board, :winner_o}
+      three_in_a_row(mapped_board, [3,5,7], :o) -> {:ok, board, :winner_o}
+      three_in_a_row(mapped_board, [1,5,9], :x) -> {:ok, board, :winner_x}
+      three_in_a_row(mapped_board, [3,5,7], :x) -> {:ok, board, :winner_x}
+      # Draw
+      mapped_board |> all_spaces_taken -> {:ok, board, :draw}
+      # Still in progress
+      mapped_board -> {:ok, board, :continue}
+    end
+  end
+
   def play_at(board, position, player) do
-    # Below is the response from the piped output
-    # Check if player is valid
     with {:ok, valid_player} <- check_player(player),
-         # Check if Square is valid
          {:ok, square} <- Square.new(position),
-         # Check if square chosen is valid
          {:ok, new_board} <- choose_square(board, square, valid_player),
-         # Respond with new_board, else error
-         do: new_board
+         {:ok, progress} <- check_progress(new_board),
+         do: progress
   end
 
   def new_board do
-    # For every square
-    # Insert map of k: Square and v: :empty into an empty map
-    for square <- squares(), into: %{}, do: {square, :empty}
+    squares = for position <- 1..9, into: MapSet.new(), do: %Square{position: position}
+    for square <- squares, into: %{}, do: {square, :empty}
   end
 
-  def squares do
-    # For every column and row from range of 1..3, 
-    # insert Square into a new MapSet (No duplicates, unique)
-    for position <- 1..9, into: MapSet.new(), do: %Square{position: position}
+  def all_spaces_taken(mapped_board) do
+    mapped_board
+      |> Enum.filter(fn {_, value} -> value == :empty end)
+      |> length <= 1
+  end
+
+  def three_in_a_row(mapped_board, positions, player) do
+    mapped_board 
+      |> Enum.map(fn {position, value} -> if position in positions, do: value end) 
+      |> Enum.filter(fn value -> value != nil end) == [player, player, player] 
+  end
+
+  def made_a_move(mapped_board, player) do
+    mapped_board
+      |> Map.values
+      |> Enum.member?(player)
   end
 end
