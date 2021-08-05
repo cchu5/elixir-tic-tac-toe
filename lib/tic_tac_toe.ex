@@ -25,30 +25,30 @@ defmodule TicTacToe do
     cond do
       mapped_board |> made_a_move(:o) == false ||
       mapped_board |> made_a_move(:x) == false ->
-        {:ok, board}
+        {:ok, board, :continue}
       # Rows
-      three_in_a_row(mapped_board, [1,2,3], :o) -> {:ok, :winner_o}
-      three_in_a_row(mapped_board, [4,5,6], :o) -> {:ok, :winner_o}
-      three_in_a_row(mapped_board, [7,8,9], :o) -> {:ok, :winner_o}
-      three_in_a_row(mapped_board, [1,2,3], :x) -> {:ok, :winner_x}
-      three_in_a_row(mapped_board, [4,5,6], :x) -> {:ok, :winner_x}
-      three_in_a_row(mapped_board, [7,8,9], :x) -> {:ok, :winner_x}
+      three_in_a_row(mapped_board, [1,2,3], :o) -> {:ok, board, :winner_o}
+      three_in_a_row(mapped_board, [4,5,6], :o) -> {:ok, board, :winner_o}
+      three_in_a_row(mapped_board, [7,8,9], :o) -> {:ok, board, :winner_o}
+      three_in_a_row(mapped_board, [1,2,3], :x) -> {:ok, board, :winner_x}
+      three_in_a_row(mapped_board, [4,5,6], :x) -> {:ok, board, :winner_x}
+      three_in_a_row(mapped_board, [7,8,9], :x) -> {:ok, board, :winner_x}
       # Columns
-      three_in_a_row(mapped_board, [1,4,7], :o) -> {:ok, :winner_o}
-      three_in_a_row(mapped_board, [2,5,8], :o) -> {:ok, :winner_o}
-      three_in_a_row(mapped_board, [3,6,9], :o) -> {:ok, :winner_o}
-      three_in_a_row(mapped_board, [1,4,7], :x) -> {:ok, :winner_x}
-      three_in_a_row(mapped_board, [2,5,8], :x) -> {:ok, :winner_x}
-      three_in_a_row(mapped_board, [3,6,9], :x) -> {:ok, :winner_x}
+      three_in_a_row(mapped_board, [1,4,7], :o) -> {:ok, board, :winner_o}
+      three_in_a_row(mapped_board, [2,5,8], :o) -> {:ok, board, :winner_o}
+      three_in_a_row(mapped_board, [3,6,9], :o) -> {:ok, board, :winner_o}
+      three_in_a_row(mapped_board, [1,4,7], :x) -> {:ok, board, :winner_x}
+      three_in_a_row(mapped_board, [2,5,8], :x) -> {:ok, board, :winner_x}
+      three_in_a_row(mapped_board, [3,6,9], :x) -> {:ok, board, :winner_x}
       # Diagonal
-      three_in_a_row(mapped_board, [1,5,9], :o) -> {:ok, :winner_o}
-      three_in_a_row(mapped_board, [3,5,7], :o) -> {:ok, :winner_o}
-      three_in_a_row(mapped_board, [1,5,9], :x) -> {:ok, :winner_x}
-      three_in_a_row(mapped_board, [3,5,7], :x) -> {:ok, :winner_x}
+      three_in_a_row(mapped_board, [1,5,9], :o) -> {:ok, board, :winner_o}
+      three_in_a_row(mapped_board, [3,5,7], :o) -> {:ok, board, :winner_o}
+      three_in_a_row(mapped_board, [1,5,9], :x) -> {:ok, board, :winner_x}
+      three_in_a_row(mapped_board, [3,5,7], :x) -> {:ok, board, :winner_x}
       # Draw
-      mapped_board |> all_spaces_taken -> {:ok, :draw}
+      mapped_board |> all_spaces_taken -> {:ok, board, :draw}
       # Still in progress
-      mapped_board -> {:ok, board}
+      mapped_board -> {:ok, board, :continue}
     end
   end
 
