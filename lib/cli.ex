@@ -1,12 +1,12 @@
 defmodule CLI do
-  @commands %{
-    "start" => "Begin a game of Tic Tac Toe",
-    "quit" => "Quits Tic Tac Toe"
-  }
+	@commands [
+		{:start, "Begin a game of Tic Tac Toe"},
+		{:quit, "Quits Tic Tac Toe"}
+	]
 
-  @game_commands %{
-    "1..9" => "Choose a position matching one of these numbers"
-  }
+	@game_commands [
+		{"1..9", "Choose a position matching one of these numbers"}
+	]
 
   def main() do
     IO.puts("Welcome to Tic Tac Toe!")

@@ -27,8 +27,8 @@ defmodule CLITest do
     test "prints commands" do
       expected = """
       These are the following commands:
-       quit - Quits Tic Tac Toe
        start - Begin a game of Tic Tac Toe
+       quit - Quits Tic Tac Toe
       """
       assert capture_io(fn ->
         CLI.print_help_msg()
